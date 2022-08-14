@@ -35,15 +35,19 @@ const userSchema = new Schema(
        friends: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'User',
+            ref: 'friend',
         },
        ],
-
-       friendCount: {
-        type: Number,
-        default: friends.length,
-       }
     },
 );
 
-module.export = userSchema;
+// Virtual for friend count
+userSchema.virtual('friendCount').get(() => {
+  return this.friends.length;
+});
+
+// Initialize User model
+const User = model('user', userSchema);
+
+// Export model
+module.export = User;
