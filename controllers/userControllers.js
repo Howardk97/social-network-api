@@ -1,12 +1,16 @@
 // Bring in models
-const { User, Thought } = require('../models');
+const { User } = require('../models');
 
 module.exports = {
     // Get all users
     getUsers(req, res) {
         User.find()
-            .then((users) => res.json(users))
-            .catch((err) => res.status(500).json(err));
+            .then((userData) => res.json(userData))
+            .catch((err) => {
+                res.status(500).json(err);
+                // console.log(err);
+            }
+            );
     },
 
     // Get a single user

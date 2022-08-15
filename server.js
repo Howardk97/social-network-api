@@ -1,6 +1,7 @@
 // Packages/mongodb connection
 const express = require('express');
 const db = require('./config/connection');
+const routes = require('./routes');
 
 // Routes, port, express, cwd
 // const routes = require('./routes');
@@ -10,7 +11,7 @@ const app = express();
 // Utilize express and routes
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// app.use(routes);
+app.use(routes);
 
 // Run server once database is loaded
 db.once('open', () => {
