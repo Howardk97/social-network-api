@@ -35,16 +35,19 @@ module.exports = {
     // updateUser(req, res) {
     updateUser(req, res) {
         User.findOneAndUpdate(
-            {user: req.body.user},
-            {_id: req.params.userId}
+            {_id: req.params.userId},
+            { username: req.body.username },
+            {new: true}
             )
-            .then((dbUserData) => {
-                res.json(dbUserData)
-            }) 
-            .catch((err) => {
-                res.status(500).json(err);
-                console.log(err);
-            })
+            // .then((dbUserData) => {
+            //     res.json(dbUserData)
+            // }) 
+            // .catch((err) => {
+            //     res.status(500).json(err);
+            //     console.log(err);
+            // })
+            .then((dbUserData) => res.json(dbUserData))
+            .catch((err) => res.status(500).json(err));
     },
 
     // 18, Activity 25, videoController.js
