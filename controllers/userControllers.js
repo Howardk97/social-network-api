@@ -50,17 +50,6 @@ module.exports = {
     // 18, Activity 25, videoController.js
     deleteUser(req, res) {
         User.findOneAndRemove({_id: req.params.userId})
-            // .then((user) => {
-            //     if(!user) {
-            //         res.status(404).json({ message: 'No user with this id'});
-            //     } else {
-            //         User.findOneAndUpdate(
-            //             {user: req.params.userId},
-            //             {$pull: {user: req.params.userId}},
-            //             {new: true}
-            //         )
-            //     }
-            // })
             .then((user) => {
                 if(!user) {
                     res.status(404).json({ message: 'No user with this id!'})
