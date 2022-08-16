@@ -29,12 +29,10 @@ const userSchema = new Schema(
        },
 
        thoughts: [{
-            text: String,
-            postedBy: {
-                type: Schema.Types.ObjectId,
-                ref: 'Thought',
-            }
-        }],
+            type: Schema.Types.ObjectId,
+            ref: 'Thought',   
+        },
+        ],
 
        friends: [
         {

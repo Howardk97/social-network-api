@@ -58,7 +58,18 @@ module.exports = {
     // Add a new friend to users friendlist
     addFriend(req, res) {
         User.create(req.body)
-        .then((data) => res.json(data))
+        .then((data) => {
+            // console.log(req.body)
+            console.log(data);
+            return User.findOneAndUpdate({_id: req.params.userId}, {$push: {_id: req.body.userId}}, {new: true});
+        })
+        // return User.findOneAndUpdate({_id: req.params.userId}, {$push: {friends: req.params.friendId}}, {new: true})
+        .then((dbUserData) => {
+            // console.log(dbUserData);
+            if(!dbUserData) {
+                res.json(data)
+            }
+        })
         .catch((err) => res.status(500).json(err));
     },
 

@@ -1,5 +1,5 @@
 // Bring in models
-const { Thought } = require('../models');
+const { User, Thought } = require('../models');
 
 module.exports = {
     // Get thoughts
@@ -25,7 +25,16 @@ module.exports = {
     // Create a thought
     createThought(req, res) {
         Thought.create(req.body)
-        .then((data) => res.json(data))
+        .then((data) => {
+            console.log(data)
+            console.log(req.body)
+            return User.findOneAndUpdate({_id: req.body.userId}, {$push: {thoughts: data._id}}, {new: true})
+        })
+        .then((dbUserData) => {
+            if(!dbUserData) {
+                res.json(dbUserData)
+            }
+        })
         .catch((err) => res.status(500).json(err));
 
         (error) => {
