@@ -1,33 +1,34 @@
 // Bring in mongoose
 const { Schema, model } = require('mongoose');
+const Reaction = require('./Reaction');
 
-// Create model for Reaction
-const reactionSchema = new Schema({
-    reactionId: {
-        type: Schema.Types.ObjectId,
-        // default: Schema.Types.ObjectId
-    },
+// // Create model for Reaction
+// const reactionSchema = new Schema({
+//     reactionId: {
+//         type: Schema.Types.ObjectId,
+//         // default: Schema.Types.ObjectId
+//     },
 
-    reactionBody: {
-        type: String,
-        required: true,
-        maxLength: 280
-    },
+//     reactionBody: {
+//         type: String,
+//         required: true,
+//         maxLength: 280
+//     },
 
-    username: {
-        type: String,
-        required: true,
-    },
+//     username: {
+//         type: String,
+//         required: true,
+//     },
 
-    createdAt: {
-        type: Date,
-        default: Date.now(),
-        get: (date) => {
-            if(date) return date.toISOString().split(" ") [0];
-        },
-        timestamps: true,
-    },
-});
+//     createdAt: {
+//         type: Date,
+//         default: Date.now(),
+//         get: (date) => {
+//             if(date) return date.toISOString().split(" ") [0];
+//         },
+//         timestamps: true,
+//     },
+// });
 
 // Model for Thought
 const thoughtSchema = new Schema(
@@ -53,7 +54,7 @@ const thoughtSchema = new Schema(
             required: true
         },
 
-        reactions: [reactionSchema]
+        reactions: [Reaction]
     }
 );
 
@@ -66,9 +67,9 @@ thoughtSchema.virtual('reactionCount').get(() => {
 // Initialize thought model
 const Thought = model('thought', thoughtSchema);
 
-const  Reaction = model('reaction', reactionSchema);
+// const  Reaction = model('reaction', reactionSchema);
 
 // Export Thought model
 module.exports = Thought;
 
-module.exports = Reaction;
+// module.exports = Reaction;

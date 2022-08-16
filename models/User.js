@@ -1,5 +1,8 @@
 // Bring in mongoose
-const { Schema, model } = require('mongoose');
+const { Schema, Types, model } = require('mongoose');
+
+// Bring in models
+const Thought = require('./Thought');
 
 // Function that validates email
 var valEmail = function(email) {
@@ -25,12 +28,13 @@ const userSchema = new Schema(
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email address.']
        },
 
-       thoughts: [
-            {
+       thoughts: [{
+            text: String,
+            postedBy: {
                 type: Schema.Types.ObjectId,
                 ref: 'Thought',
-            },
-       ],
+            }
+        }],
 
        friends: [
         {
