@@ -56,18 +56,12 @@ module.exports = {
     },
 
     // Add a new friend to users friendlist
-    addFriend(req, res) {
-        User.create(req.body)
+    addFriend(req, res) {     
+        return User.findOneAndUpdate({_id: req.params.userId}, {$push: {friends: req.params.friendId}}, {new: true})
         .then((data) => {
-            // console.log(req.body)
-            console.log(data);
-            return User.findOneAndUpdate({_id: req.params.userId}, {$push: {_id: req.body.userId}}, {new: true});
-        })
-        // return User.findOneAndUpdate({_id: req.params.userId}, {$push: {friends: req.params.friendId}}, {new: true})
-        .then((dbUserData) => {
             // console.log(dbUserData);
-            if(!dbUserData) {
-                res.json(data)
+            if(!data) {
+                res.json(data);
             }
         })
         .catch((err) => res.status(500).json(err));
@@ -75,6 +69,17 @@ module.exports = {
 
     // Delete friend from users friend list
     deleteFriend(req, res) {
-
+        User.findOne({_id: req.params.userId})
+        .then((data) => {
+            console.log(data);
+            // console.log(req.params.friendId)
+            User.findOneAndRemove({_id: data._id}, {$pull: {friends: req.params.friendId}})
+        })
+        .then((data) => {
+            if(!data) {
+                res.status(404).json({message: "There are no such friends with this id"})
+            }
+        })
+        .catch((err) => res.status(500).json(err))
     },
 }

@@ -69,5 +69,35 @@ module.exports = {
                 res.json(data);
             }
         })
-    }
+    },
+
+    // Create reaction
+    createReaction(req, res) {
+        Thought.create(req.body)
+        .then((data) => {
+            console.log(data)
+            Thought.findOneAndUpdate({_id: req.body.userId}, {$push: {reactions: data._id}}, {new: true})
+        })
+        .then((dbThoughtData) => {
+            if(!dbThoughtData) {
+                res.json(dbThoughtData)
+            }
+        })
+        .catch((err) => res.status(500).json(err));
+    },
+
+    deleteReaction(req, res) {
+        Thought.findOne({_id: req.params.thoughtId})
+        .then((data) => {
+            console.log(data);
+            // console.log(req.params.friendId)
+            User.findOneAndRemove({_id: data._id}, {$pull: {reactions: req.params.reactionId}})
+        })
+        .then((data) => {
+            if(!data) {
+                res.status(404).json({message: "There are no such friends with this id"})
+            }
+        })
+        .catch((err) => res.status(500).json(err))
+    },
 }
