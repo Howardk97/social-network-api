@@ -57,7 +57,9 @@ module.exports = {
 
     // Add a new friend to users friendlist
     addFriend(req, res) {
-
+        User.create(req.body)
+        .then((data) => res.json(data))
+        .catch((err) => res.status(500).json(err));
     },
 
     // Delete friend from users friend list
