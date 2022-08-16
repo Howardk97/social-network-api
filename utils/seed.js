@@ -15,7 +15,7 @@ connection.once('open', async () => {
     });
 
     await Thought.deleteMany({});
-    
+
     await Thought.collection.insertOne({
         thoughtText: "Here's a cool thought",
         username: "lerantino",
