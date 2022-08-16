@@ -1,15 +1,19 @@
-// // Bring in router package
-// const router = require('express').Router();
+// Bring in router package
+const router = require('express').Router();
 
-// // Bring in routes from controllers
-// const {
-//     getThought,
-//     getSingleThought,
-//     createThought,
-// } = require('../../controllers/thoughtControllers');
+// Bring in routes from controllers
+const {
+    getThought,
+    getSingleThought,
+    createThought,
+    updateThought,
+    deleteThought
+} = require('../../controllers/thoughtControllers');
 
-// // /api/users
-// router.route('/')
-// .get(getThought)
-// .get(getSingleThought)
-// .post(createThought)
+// /api/thoughts
+router.route('/').get(getThought)
+
+// /api/thoughts/thoughtId
+// router.route('/:thoughtId');
+
+module.exports = router;

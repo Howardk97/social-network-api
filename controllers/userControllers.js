@@ -39,18 +39,11 @@ module.exports = {
             { username: req.body.username },
             {new: true}
             )
-            // .then((dbUserData) => {
-            //     res.json(dbUserData)
-            // }) 
-            // .catch((err) => {
-            //     res.status(500).json(err);
-            //     console.log(err);
-            // })
             .then((dbUserData) => res.json(dbUserData))
             .catch((err) => res.status(500).json(err));
     },
 
-    // 18, Activity 25, videoController.js
+    // Deletes a user by the id
     deleteUser(req, res) {
         User.findOneAndRemove({_id: req.params.userId})
             .then((user) => {
@@ -60,5 +53,15 @@ module.exports = {
                     res.json(user);
                 }
             })
+    },
+
+    // Add a new friend to users friendlist
+    addFriend(req, res) {
+
+    },
+
+    // Delete friend from users friend list
+    deleteFriend(req, res) {
+
     },
 }
